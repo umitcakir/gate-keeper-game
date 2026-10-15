@@ -26,6 +26,7 @@ npm run dev        # API on :8080 + Vite dev server on http://localhost:5173 (ho
 | `npm run chat` | Chat with the monster in the terminal (shows the scoring) |
 | `npm run art` | Regenerate the placeholder SVG art |
 | `npm run purge -- --yes` | Delete all personal data after the event |
+| `npm run reset-winners -- [--today] --yes` | Clear the winner list (keeps players) |
 
 Admin dashboard: http://localhost:8080/admin (PIN from `.env`, default `4242`). Staff PIN on the win screen: `Ctrl+Shift+P`, default `1234`.
 Copy `.env.example` to `.env` and **change both PINs** before the event.

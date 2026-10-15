@@ -19,6 +19,7 @@
     "eval": "node server/eval/run.ts",
     "chat": "node server/eval/chat.ts",
     "purge": "node scripts/purge.ts",
+    "reset-winners": "node --env-file-if-exists=.env scripts/reset-winners.ts",
     "kiosk": "scripts/kiosk.sh"
   },
   "dependencies": {
