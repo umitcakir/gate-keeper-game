@@ -1,0 +1,35 @@
+{
+  "name": "gate-of-gulyabani",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CodeHub reception kiosk game: convince an LLM monster to open the prize gate",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.ts",
+    "dev:server": "node --env-file-if-exists=.env --watch server/src/index.ts",
+    "dev:client": "vite",
+    "build": "vite build",
+    "start": "NODE_ENV=production node --env-file-if-exists=.env server/src/index.ts",
+    "art": "node scripts/gen-art.ts",
+    "test": "node --test server/test/",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "eval": "node server/eval/run.ts",
+    "chat": "node server/eval/chat.ts",
+    "purge": "node scripts/purge.ts",
+    "kiosk": "scripts/kiosk.sh"
+  },
+  "dependencies": {
+    "@fastify/static": "^10.1.6",
+    "fastify": "^5.12.7"
+  },
+  "devDependencies": {
+    "@fontsource/fredoka": "^5.3.0",
+    "@types/node": "^24.19.2",
+    "phaser": "^3.90.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.4"
+  }
+}

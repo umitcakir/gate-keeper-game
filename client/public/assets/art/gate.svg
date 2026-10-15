@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 600" width="1040" height="1200">
+  <defs><linearGradient id="stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b8fa3"/><stop offset="1" stop-color="#5f6375"/></linearGradient></defs>
+  <path d="M 0 600 L 0 210 Q 0 0 260 0 Q 520 0 520 210 L 520 600 Z M 70 600 L 70 230 Q 70 70 260 70 Q 450 70 450 230 L 450 600 Z" fill="url(#stone)" fill-rule="evenodd" stroke="#3a3c48" stroke-width="6"/>
+  <path d="M 0 260 L 70 260 M 450 260 L 520 260 M 22 260 L 22 316 M 470 260 L 470 316" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 316 L 70 316 M 450 316 L 520 316 M 22 316 L 22 372 M 470 316 L 470 372" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 372 L 70 372 M 450 372 L 520 372 M 22 372 L 22 428 M 470 372 L 470 428" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 428 L 70 428 M 450 428 L 520 428 M 22 428 L 22 484 M 470 428 L 470 484" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 484 L 70 484 M 450 484 L 520 484 M 22 484 L 22 540 M 470 484 L 470 540" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 540 L 70 540 M 450 540 L 520 540 M 22 540 L 22 596 M 470 540 L 470 596" stroke="#4b4e5c" stroke-width="4"/><path d="M 0 596 L 70 596 M 450 596 L 520 596 M 22 596 L 22 652 M 470 596 L 470 652" stroke="#4b4e5c" stroke-width="4"/>
+  <path d="M 70 230 Q 70 70 260 70 Q 450 70 450 230" fill="none" stroke="#3a3c48" stroke-width="10"/>
+  <path d="M 222 -2 L 298 -2 L 286 78 L 234 78 Z" fill="#767a8e" stroke="#3a3c48" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M 260 18 Q 262.7 33.3 278 36 Q 262.7 38.7 260 54 Q 257.3 38.7 242 36 Q 257.3 33.3 260 18 Z" fill="#ffd84a"/>
+  </svg>
