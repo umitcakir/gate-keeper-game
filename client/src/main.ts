@@ -39,5 +39,13 @@ window.addEventListener('keydown', (e) => {
 });
 // Kiosk hygiene: no context menu, no accidental navigation.
 window.addEventListener('contextmenu', (e) => e.preventDefault());
+// Kiosk fullscreen fallback: the browser only allows it after a user gesture, so try on each input until it sticks.
+if (new URLSearchParams(location.search).has('kiosk')) {
+  const goFullscreen = () => {
+    if (!document.fullscreenElement) void document.documentElement.requestFullscreen().catch(() => {});
+  };
+  window.addEventListener('keydown', goFullscreen);
+  window.addEventListener('pointerdown', goFullscreen);
+}
 
 ctx.goHome();

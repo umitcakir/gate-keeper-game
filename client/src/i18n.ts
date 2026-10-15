@@ -53,6 +53,7 @@ const STRINGS = {
   winRank: { tr: 'Bugünkü sıralamada {rank}. sıradasın!', en: "Today's #{rank}" },
   prizeEligible: { tr: 'Hediyeni almak için bu ekranı görevlimize göster!', en: 'Show this screen to our staff to collect your gift!' },
   prizeAlready: { tr: 'Daha önce hediyeni almıştın ama bu zafer de senin!', en: 'You already got a gift — but this victory is yours too!' },
+  nextPlayer: { tr: 'Sonraki oyuncu için ana menüye dön', en: 'Back to the main menu for the next player' },
   loseTitle: { tr: 'Kapı kapalı kaldı!', en: 'The gate stays shut!' },
   loseTrust: { tr: 'Kazandığın güven', en: 'Trust reached' },
   loseAgain: { tr: 'Tekrar denemek için formu yeniden doldurabilirsin.', en: 'Fill in the form again to have another go.' },

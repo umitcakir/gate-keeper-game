@@ -24,6 +24,10 @@ trap 'kill $SERVER 2>/dev/null' EXIT
 until curl -sf -m 1 "http://localhost:$PORT/api/status" >/dev/null; do sleep 0.5; done
 
 PROFILE="$(mktemp -d)"
-chromium --kiosk --incognito --noerrdialogs --no-first-run --disable-translate --disable-features=TranslateUI \
+# X11 (XWayland) on purpose: on KDE Wayland, native-Wayland Chromium reports "fullscreen" but KWin
+# gives it a smaller window. It opens on the primary monitor.
+# ?kiosk=1 also makes the client request fullscreen on the first key press, as a fallback.
+chromium --kiosk --start-fullscreen --ozone-platform=x11 \
+  --incognito --noerrdialogs --no-first-run --disable-translate --disable-features=TranslateUI \
   --disable-pinch --overscroll-history-navigation=0 --autoplay-policy=no-user-gesture-required \
-  --user-data-dir="$PROFILE" "http://localhost:$PORT"
+  --user-data-dir="$PROFILE" "http://localhost:$PORT/?kiosk=1"

@@ -19,16 +19,16 @@
 `npm run kiosk` (= `scripts/kiosk.sh`):
 1. Checks that LM Studio is reachable at `:1234`, and stops with a big warning if not.
 2. Builds the client if `client/dist` is missing, then starts the Node server (with `.env`).
-3. Opens Chromium in kiosk mode (fresh incognito profile, no translate popups, no pinch or swipe navigation).
+3. Opens Chromium full screen in kiosk mode (fresh incognito profile, no translate popups, no pinch or swipe navigation).
 
 Exit the kiosk with `Alt+F4` (staff only). This also stops the server.
 
 ## Staff flow at reception
 
 1. The player plays. If they win, the screen shows the **Win** screen and stays there.
-2. Staff hand over the gift, press **`Ctrl+Shift+P`** on the Win screen, type the **staff PIN** and press Enter. This marks the prize as given and returns to the attract screen.
-3. If the prize is not handed over (e.g. the player walked away): `Ctrl+Shift+P` → PIN → "Skip without gift".
-4. Winners who aren't due a gift (stock empty, or they already got one) return to the attract screen by themselves after 20 s.
+2. Staff hand over the gift, press **`Ctrl+Shift+P`** on the Win screen, type the **staff PIN** and press Enter. This marks the prize as given; then press the on-screen button to return to the attract screen for the next player.
+3. If the prize is not handed over (e.g. the player walked away): `Ctrl+Shift+P` → PIN → "Skip without gift", then press the on-screen button.
+4. Winners who aren't due a gift (stock empty, or they already got one) can return using the on-screen button or wait for the screen to return to the attract screen after 20 s.
 
 ## Troubleshooting
 

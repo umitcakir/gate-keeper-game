@@ -27,9 +27,20 @@ export const win: Screen<WinData> = (ctx, { attemptId, firstName, result }) => {
 
   const timeouts: number[] = [];
   let closeModal: (() => void) | null = null;
+  let canReturn = !eligible;
+  const returnToMenu = () => ctx.goHome();
+  const showReturnButton = () => {
+    if (document.getElementById('return-home')) return;
+    ctx.panel.insertAdjacentHTML(
+      'beforeend',
+      `<button class="primary" id="return-home">${esc(t('nextPlayer'))}</button>`,
+    );
+    document.getElementById('return-home')!.addEventListener('click', returnToMenu);
+  };
+  if (canReturn) showReturnButton();
 
   const staff = () => {
-    if (isModalOpen()) return;
+    if (!eligible || canReturn || isModalOpen()) return;
     closeModal = modal(
       `<h3>${esc(t('staffTitle'))}</h3>
        <input id="pin" type="password" inputmode="numeric" maxlength="8" placeholder="${esc(t('staffPin'))}" autocomplete="off" />
@@ -46,19 +57,23 @@ export const win: Screen<WinData> = (ctx, { attemptId, firstName, result }) => {
             const res = await api.claim(attemptId, pin.value, give);
             if (give && !res.claimed) {
               err.textContent = t('staffNotGiven');
-              timeouts.push(window.setTimeout(() => { close(); ctx.goHome(); }, 2000));
               return;
             }
             if (give) sfx.coin();
             close();
-            ctx.goHome();
+            canReturn = true;
+            showReturnButton();
           } catch (e) {
             err.textContent = e instanceof ApiError && e.status === 403 ? t('staffWrong') : t('errGeneric');
             pin.select();
           }
         };
         pin.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') void submit(eligible);
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            void submit(eligible);
+          }
         });
         root.querySelector('#give')?.addEventListener('click', () => void submit(true));
         $(root, '#skip').addEventListener('click', () => void submit(false));
@@ -71,12 +86,12 @@ export const win: Screen<WinData> = (ctx, { attemptId, firstName, result }) => {
     if (e.ctrlKey && e.shiftKey && e.code === 'KeyP') {
       e.preventDefault();
       staff();
-    } else if (!eligible && !isModalOpen() && e.key === 'Enter') {
-      ctx.goHome();
+    } else if (canReturn && !isModalOpen() && e.key === 'Enter') {
+      returnToMenu();
     }
   };
   window.addEventListener('keydown', onKey);
-  // Winners with a gift wait for staff; everyone else returns to the attract screen on their own.
+  // Non-eligible winners can return manually or wait for the screen to clear for the next player.
   if (!eligible) timeouts.push(window.setTimeout(() => ctx.goHome(), 20_000));
 
   return () => {
