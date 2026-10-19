@@ -54,6 +54,6 @@ Under Article 11 of KVKK, you have the right to apply to the Company to:
 • Object to a result against you arising from the analysis of your data exclusively through automated systems,
 • Claim compensation if you suffer damage due to unlawful processing of your personal data.
 
-You can send your requests regarding these rights to the Company at info_privacy@sisal.com. Your requests will be evaluated and concluded in accordance with the procedures and principles set out in KVKK and the related legislation.
+You can send your requests regarding these rights to the Company at ik@sisal.com. Your requests will be evaluated and concluded in accordance with the procedures and principles set out in KVKK and the related legislation.
 
 Sisal Technology Yazılım Anonim Şirketi

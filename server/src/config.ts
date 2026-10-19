@@ -28,7 +28,7 @@ export const config = {
   kioskExitPin: process.env.KIOSK_EXIT_PIN ?? '1885',
 
   /** Bump when the KVKK notice text changes; stored with every acknowledgement. */
-  kvkkNoticeVersion: process.env.KVKK_NOTICE_VERSION ?? 'v1',
+  kvkkNoticeVersion: process.env.KVKK_NOTICE_VERSION ?? 'v2',
 
   maxMessageChars: 200,
 };

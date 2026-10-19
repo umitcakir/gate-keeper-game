@@ -53,6 +53,6 @@ KVKK’nın 11. maddesi uyarınca Şirket’e başvurarak;
 • KVKK’ya aykırı bir işleme nedeniyle zarara uğramanız hâlinde zararın giderilmesini talep etme
 haklarına sahipsiniz.
 
-Bu haklarınıza ilişkin taleplerinizi info_privacy@sisal.com üzerinden Şirket’e iletebilirsiniz. Başvurularınız, KVKK ve ilgili mevzuatta öngörülen usul ve esaslar çerçevesinde değerlendirilerek sonuçlandırılacaktır.
+Bu haklarınıza ilişkin taleplerinizi ik@sisal.com üzerinden Şirket’e iletebilirsiniz. Başvurularınız, KVKK ve ilgili mevzuatta öngörülen usul ve esaslar çerçevesinde değerlendirilerek sonuçlandırılacaktır.
 
 Sisal Technology Yazılım Anonim Şirketi

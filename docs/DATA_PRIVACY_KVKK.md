@@ -1,7 +1,7 @@
 # Personal Data and KVKK
 
 > This is the technical plan, **not legal advice**. The KVKK notice (*aydınlatma metni*) comes from legal: data controller
-> Sisal Technology Yazılım A.Ş., requests to info_privacy@sisal.com. The app shows the text in `server/content/kvkk_{tr,en}.md`
+> Sisal Technology Yazılım A.Ş., requests to ik@sisal.com. The app shows the text in `server/content/kvkk_{tr,en}.md`
 > (Turkish is the official text; English is a convenience translation). Bump `KVKK_NOTICE_VERSION` (`server/src/config.ts`) when it changes.
 > **The app must keep matching what the notice promises** (initials only on screen, local processing only, 30-day retention).
 
