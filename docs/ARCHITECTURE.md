@@ -47,6 +47,8 @@ acibadem_workshop/
 │  │  ├─ lines.ts          # canned TR/EN monster lines
 │  │  ├─ game.ts           # attempt service (live state, ties it all together)
 │  │  ├─ db.ts             # SQLite schema + queries
+│  │  ├─ kiosk/            # launcher.ts (watchdog, blocked shortcuts, PIN-only exit), kde.ts, windows-helper.ps1,
+│  │  │                    # run.ts (dist/ entry), main.ts (single-executable entry)
 │  │  └─ routes/{game,admin}.ts
 │  ├─ content/kvkk_{tr,en}.md   # KVKK notice texts (placeholders until legal provides them)
 │  ├─ eval/                # run.ts (eval harness), chat.ts (terminal chat), cases.ts
@@ -60,9 +62,13 @@ acibadem_workshop/
 │  │  ├─ admin/            # admin dashboard
 │  │  ├─ api.ts, i18n.ts, sfx.ts, ui.ts, style.css
 │  └─ public/assets/art/   # generated SVGs (npm run art)
-├─ data/                   # game.db (gitignored)
+├─ data/                   # game.db for dev (gitignored)
+├─ deploy/                 # kiosk.sh / kiosk.cmd: thin dist/ launchers (copied by the build) → server/src/kiosk/run.ts
+├─ kiosk.sh, kiosk.cmd     # root launchers: build dist/ if needed, then run its launcher
+├─ dist/                   # npm run build: self-contained package (public/, server/, node_modules/, data/ = event DB)
+├─ release/                # npm run build:exe: single executables (+ .env, data/ next to them)
 ├─ docs/
-└─ scripts/                # kiosk.sh, dev.ts, gen-art.ts, purge.ts
+└─ scripts/                # build.ts, kiosk.ts, dev.ts, gen-art.ts, purge.ts
 ```
 
 ## 4. API
@@ -77,6 +83,7 @@ All JSON. Game routes take an `attemptId` that the server issues; the server kee
 | `GET  /api/leaderboard` | — | `{winners:[{name,messages,durationMs}], closest:[{name,trust}]}` |
 | `GET  /api/status` | — | `{llmOk, prizesRemaining}` |
 | `POST /api/attempt/:id/claim` | `{staffPin}` | Marks the prize as handed over and decrements stock |
+| `POST /api/kiosk/exit` | `{pin}` | Kiosk launchers only (`KIOSK=1`): checks `KIOSK_EXIT_PIN`, then the server exits so the launcher closes the browser. 5 wrong PINs → 429 for 1 min |
 | `GET  /admin` + `/api/admin/*` | Admin PIN | Stats, prize cap, difficulty, volume, CSV export, LLM health, test chat |
 
 The time limit is enforced **server-side** (`startedAt` plus accumulated time while not waiting for the LLM). The client countdown is only for display.

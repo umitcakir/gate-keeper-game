@@ -1,12 +1,12 @@
 // Deletes ALL personal data (the SQLite DB). Run after the event, per docs/DATA_PRIVACY_KVKK.md.
-// Usage: npm run purge -- --yes [--export backup.csv]
+// Usage: npm run purge -- --yes [--export backup.csv]   (single executable: gulyabani-kiosk --purge --yes ...)
 import { rmSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { config } from '../server/src/config.ts';
 
 const { values } = parseArgs({ options: { yes: { type: 'boolean', default: false }, export: { type: 'string' } } });
 if (!values.yes) {
-  console.log(`This permanently deletes ${config.dbPath}.\nRe-run with: npm run purge -- --yes [--export backup.csv]`);
+  console.log(`This permanently deletes ${config.dbPath}.\nRe-run with: ${process.env.GK_CLI ? `${process.env.GK_CLI} --purge` : 'npm run purge --'} --yes [--export backup.csv]`);
   process.exit(1);
 }
 

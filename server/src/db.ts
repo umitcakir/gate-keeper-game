@@ -238,9 +238,10 @@ export interface LeaderEntry {
   trust: number;
 }
 
-const displayName = (first: string, last: string) => `${first.trim()} ${last.trim().charAt(0).toLocaleUpperCase('tr')}.`;
+const initial = (s: string) => s.trim().charAt(0).toLocaleUpperCase('tr');
+const displayName = (first: string, last: string) => `${initial(first)}. ${initial(last)}.`;
 
-/** Today's winners: fewest messages, then fastest. Names are first name + surname initial only (KVKK). */
+/** Today's winners: fewest messages, then fastest. Names are initials only, e.g. "A. K." (KVKK notice §4). */
 export function winnersToday(limit = 10): LeaderEntry[] {
   const rows = db
     .prepare(

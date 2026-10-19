@@ -18,18 +18,20 @@ npm run dev        # API on :8080 + Vite dev server on http://localhost:5173 (ho
 
 | Command | What it does |
 |---|---|
-| `npm run build` / `npm start` | Production build, served by the Node server on http://localhost:8080 |
-| `npm run kiosk` | **Event day**: checks LM Studio, starts the server, opens Chromium in kiosk mode |
+| `npm run build` | Builds a self-contained `dist/` (client, server, production `node_modules`, kiosk launchers) to copy to the reception PC |
+| `npm run build:exe` | Single executables with everything inside (kiosk mode and all its protections): `release/win-x64/gulyabani-kiosk.exe`, `release/linux-x64/gulyabani-kiosk` |
+| `npm start` | Runs the server from `dist/` on http://localhost:8080 |
+| `./kiosk.sh` / `kiosk.cmd` / `npm run kiosk` | **Event day**: builds `dist/` if needed, then starts the kiosk from it: checks LM Studio, starts the server, opens Chromium in kiosk mode |
 | `npm test` | Unit tests (trust engine, filters) |
 | `npm run typecheck` | TypeScript check for server + client |
 | `npm run eval` | Prompt eval: category accuracy + scripted games against the real LLM (~3 min) |
 | `npm run chat` | Chat with the monster in the terminal (shows the scoring) |
 | `npm run art` | Regenerate the placeholder SVG art |
-| `npm run purge -- --yes` | Delete all personal data after the event |
-| `npm run reset-winners -- [--today] --yes` | Clear the winner list (keeps players) |
+| `npm run purge -- --yes` | Delete all personal data after the event (the event DB in `dist/data/`) |
+| `npm run reset-winners -- [--today] --yes` | Clear the winner list (keeps players) in `dist/data/` |
 
-Admin dashboard: http://localhost:8080/admin (PIN from `.env`, default `4242`). Staff PIN on the win screen: `Ctrl+Shift+P`, default `1234`.
-Copy `.env.example` to `.env` and **change both PINs** before the event.
+Admin dashboard: http://localhost:8080/admin (PIN from `.env`, default `4242`). Staff PIN on the win screen: `Ctrl+Shift+P`, default `1234`. Kiosk exit: the ⏻ button in the bottom-left corner, PIN default `1885`.
+Copy `.env.example` to `.env` and **change the PINs** before the event.
 
 ## How a round works
 

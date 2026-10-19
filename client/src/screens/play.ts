@@ -5,9 +5,7 @@ import { sfx } from '../sfx.ts';
 import { $, esc, idleTimer, type Screen } from '../ui.ts';
 import { lose, win } from './result.ts';
 
-export interface PlayData extends RegisterResult {
-  firstName: string;
-}
+export type PlayData = RegisterResult;
 
 const MOOD_EMOJI: Record<Mood, string> = { angry: '😠', annoyed: '😒', neutral: '😐', amused: '😏', impressed: '😮' };
 const MOOD_SOUND: Record<Mood, () => void> = { angry: sfx.angry, annoyed: sfx.grumble, neutral: sfx.grumble, amused: sfx.happy, impressed: sfx.happy };
@@ -177,7 +175,7 @@ export const play: Screen<PlayData> = (ctx, data) => {
           ctx.scene.openGate();
           sfx.gateOpen();
         });
-        later(7400, () => ctx.go(win, { attemptId, firstName: data.firstName, result: res.result! }));
+        later(7400, () => ctx.go(win, { attemptId, result: res.result! }));
       } else if (res.status === 'lost') {
         over = true;
         lock(false);

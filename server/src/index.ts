@@ -6,6 +6,7 @@ import { GameError } from './game.ts';
 import { warmUp } from './llm.ts';
 import { adminRoutes } from './routes/admin.ts';
 import { gameRoutes } from './routes/game.ts';
+import { kioskRoutes } from './routes/kiosk.ts';
 
 const app = Fastify({ logger: { level: config.production ? 'warn' : 'info' }, bodyLimit: 16 * 1024 });
 
@@ -19,12 +20,13 @@ app.setErrorHandler((err, _req, reply) => {
 
 await app.register(gameRoutes);
 await app.register(adminRoutes);
+await app.register(kioskRoutes);
 
 if (existsSync(config.clientDist)) {
   await app.register(fastifyStatic, { root: config.clientDist });
   app.get('/admin', (_req, reply) => reply.sendFile('admin.html'));
 } else {
-  app.log.warn('client/dist not found — run `npm run build`, or use `npm run dev` for the Vite dev server');
+  app.log.warn('public/ not found — run `npm run build` and start from dist/, or use `npm run dev` for the Vite dev server');
 }
 
 await app.listen({ port: config.port, host: config.host });

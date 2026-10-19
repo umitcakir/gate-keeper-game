@@ -2,6 +2,7 @@ import '@fontsource/fredoka/400.css';
 import '@fontsource/fredoka/600.css';
 import './style.css';
 import { api } from './api.ts';
+import { addKioskExit } from './kioskExit.ts';
 import { createGame } from './scene/MonsterScene.ts';
 import { attract } from './screens/attract.ts';
 import { Speech } from './speech.ts';
@@ -46,6 +47,7 @@ if (new URLSearchParams(location.search).has('kiosk')) {
   };
   window.addEventListener('keydown', goFullscreen);
   window.addEventListener('pointerdown', goFullscreen);
+  addKioskExit();
 }
 
 ctx.goHome();

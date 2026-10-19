@@ -11,16 +11,17 @@
     "dev": "node scripts/dev.ts",
     "dev:server": "node --env-file-if-exists=.env --watch server/src/index.ts",
     "dev:client": "vite",
-    "build": "vite build",
-    "start": "NODE_ENV=production node --env-file-if-exists=.env server/src/index.ts",
+    "build": "node scripts/build.ts",
+    "build:exe": "node scripts/build-exe.ts",
+    "start": "npm --prefix dist start",
     "art": "node scripts/gen-art.ts",
     "test": "node --test server/test/",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "eval": "node server/eval/run.ts",
     "chat": "node server/eval/chat.ts",
-    "purge": "node scripts/purge.ts",
-    "reset-winners": "node --env-file-if-exists=.env scripts/reset-winners.ts",
-    "kiosk": "scripts/kiosk.sh"
+    "purge": "npm --prefix dist run purge --",
+    "reset-winners": "npm --prefix dist run reset-winners --",
+    "kiosk": "node scripts/kiosk.ts"
   },
   "dependencies": {
     "@fastify/static": "^10.1.6",

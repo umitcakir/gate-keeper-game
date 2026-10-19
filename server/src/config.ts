@@ -1,7 +1,8 @@
 // Static configuration (env). Runtime-tunable game settings live in the DB `settings` table (see settings.ts).
 import { resolve } from 'node:path';
 
-const projectRoot = resolve(import.meta.dirname, '..', '..');
+// The single executable (server/src/kiosk/main.ts) sets GK_ROOT, CLIENT_DIST and CONTENT_DIR: it has no source tree.
+const projectRoot = process.env.GK_ROOT ?? resolve(import.meta.dirname, '..', '..');
 
 export const config = {
   projectRoot,
@@ -17,14 +18,17 @@ export const config = {
   llmHistoryTurns: 6,
 
   dbPath: process.env.DB_PATH ?? resolve(projectRoot, 'data', 'game.db'),
-  clientDist: resolve(projectRoot, 'client', 'dist'),
-  contentDir: resolve(projectRoot, 'server', 'content'),
+  clientDist: process.env.CLIENT_DIST ?? resolve(projectRoot, 'public'),
+  contentDir: process.env.CONTENT_DIR ?? resolve(projectRoot, 'server', 'content'),
 
   adminPin: process.env.ADMIN_PIN ?? '4242',
   staffPin: process.env.STAFF_PIN ?? '1234',
+  /** Set by the kiosk launcher (server/src/kiosk/launcher.ts); enables the staff exit route. */
+  kiosk: process.env.KIOSK === '1',
+  kioskExitPin: process.env.KIOSK_EXIT_PIN ?? '1885',
 
-  /** Bump when the KVKK notice text changes; stored with every consent. */
-  kvkkNoticeVersion: process.env.KVKK_NOTICE_VERSION ?? 'v0-placeholder',
+  /** Bump when the KVKK notice text changes; stored with every acknowledgement. */
+  kvkkNoticeVersion: process.env.KVKK_NOTICE_VERSION ?? 'v1',
 
   maxMessageChars: 200,
 };

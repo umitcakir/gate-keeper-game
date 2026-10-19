@@ -22,8 +22,8 @@ const STRINGS = {
   phone: { tr: 'Telefon', en: 'Phone' },
   phonePh: { tr: '05xx xxx xx xx', en: '+90 5xx xxx xx xx' },
   kvkkLabel: {
-    tr: "{link}'ni okudum, kişisel verilerimin bu oyun kapsamında işlenmesine onay veriyorum.",
-    en: 'I have read the {link} and consent to the processing of my data for this game.',
+    tr: "{link}'ni okudum ve anladım.",
+    en: 'I have read and understood the {link}.',
   },
   kvkkLink: { tr: 'KVKK Aydınlatma Metni', en: 'KVKK Privacy Notice' },
   publicNote: { tr: 'Mesajların ekranda herkes tarafından görülebilir; kişisel bilgi paylaşma.', en: 'Your messages are visible on screen; do not type personal info.' },
@@ -37,7 +37,7 @@ const STRINGS = {
     tr: 'Bu e-posta ile kapı zaten açıldı! Herkesin bir zafer hakkı var.',
     en: 'This email has already opened the gate! One victory per person.',
   },
-  errConsent: { tr: 'Oynamak için onay vermen gerekiyor', en: 'Consent is required to play' },
+  errConsent: { tr: 'Oynamak için aydınlatma metnini okuduğunu onaylaman gerekiyor', en: 'Please confirm that you have read the privacy notice' },
   errGeneric: { tr: 'Bir şeyler ters gitti, tekrar dene.', en: 'Something went wrong, try again.' },
 
   trust: { tr: 'Güven', en: 'Trust' },
@@ -49,7 +49,7 @@ const STRINGS = {
   notCounted: { tr: 'bu mesaj sayılmadı', en: 'this one did not count' },
 
   winTitle: { tr: 'KAPI AÇILDI!', en: 'THE GATE IS OPEN!' },
-  winSummary: { tr: "{name}, Gulyabani'yi {turns} mesajla, {time} sürede ikna ettin!", en: '{name}, you convinced Gulyabani in {turns} messages and {time}!' },
+  winSummary: { tr: "Gulyabani'yi {turns} mesajla, {time} sürede ikna ettin!", en: 'You convinced Gulyabani in {turns} messages and {time}!' },
   winRank: { tr: 'Bugünkü sıralamada {rank}. sıradasın!', en: "Today's #{rank}" },
   prizeEligible: { tr: 'Hediyeni almak için bu ekranı görevlimize göster!', en: 'Show this screen to our staff to collect your gift!' },
   prizeAlready: { tr: 'Daha önce hediyeni almıştın ama bu zafer de senin!', en: 'You already got a gift — but this victory is yours too!' },
@@ -63,6 +63,10 @@ const STRINGS = {
   staffGive: { tr: 'Hediye verildi ✓', en: 'Gift handed over ✓' },
   staffSkip: { tr: 'Hediye vermeden geç', en: 'Skip without gift' },
   staffWrong: { tr: 'Yanlış PIN', en: 'Wrong PIN' },
+  kioskExit: { tr: 'Kiosk modundan çık', en: 'Exit kiosk mode' },
+  kioskExitHint: { tr: 'Görevli PIN’ini gir.', en: 'Enter the staff PIN.' },
+  kioskLocked: { tr: 'Çok fazla yanlış deneme. Bir dakika sonra tekrar dene.', en: 'Too many wrong attempts. Try again in a minute.' },
+  kioskClosing: { tr: 'Kapatılıyor…', en: 'Closing…' },
   staffNotGiven: { tr: 'Hediye kaydedilemedi (stok bitti ya da kişi sınırı doldu).', en: 'Gift not recorded (stock/one-per-person limit).' },
 } satisfies Record<string, Record<Lang, string>>;
 

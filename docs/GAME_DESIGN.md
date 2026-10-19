@@ -94,7 +94,7 @@ The game runs on a screen in a public reception area, so both directions are fil
 
 - Ranks winners for **today**: fewest messages first, then shortest time.
 - The leaderboard also shows the non-winners' best (highest trust) in a "So close!" strip, so it's never empty early in the day.
-- Displays **first name + surname initial only** (e.g. "Ayşe K."), never email or phone.
+- Displays **initials only** (e.g. "A. K."), as promised in the KVKK notice; never email or phone.
 - Shown on the Attract screen (top 5) and on the Win screen (with the player's rank highlighted).
 
 ## 7. Prize cap

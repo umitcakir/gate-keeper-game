@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, 'client');
 export default defineConfig({
   root,
   build: {
-    outDir: resolve(root, 'dist'),
+    outDir: resolve(import.meta.dirname, 'dist', 'public'),
     emptyOutDir: true,
     chunkSizeWarningLimit: 2000,
     rollupOptions: {

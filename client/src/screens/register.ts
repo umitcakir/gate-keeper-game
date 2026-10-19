@@ -131,7 +131,7 @@ export const register: Screen = (ctx) => {
     try {
       const res = await api.register({ ...values, lang: getLang() });
       sfx.send();
-      ctx.go(play, { ...res, firstName: values.firstName });
+      ctx.go(play, res);
     } catch (err) {
       busy = false;
       if (err instanceof ApiError && err.body.errors) {

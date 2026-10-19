@@ -6,11 +6,10 @@ import { $, esc, isModalOpen, modal, type Screen } from '../ui.ts';
 
 export interface WinData {
   attemptId: string;
-  firstName: string;
   result: AttemptResult;
 }
 
-export const win: Screen<WinData> = (ctx, { attemptId, firstName, result }) => {
+export const win: Screen<WinData> = (ctx, { attemptId, result }) => {
   const eligible = result.prize === 'eligible';
   const prizeHtml =
     result.prize === 'eligible'
@@ -21,7 +20,7 @@ export const win: Screen<WinData> = (ctx, { attemptId, firstName, result }) => {
   ctx.panel.className = 'panel result win';
   ctx.panel.innerHTML = `
     <h1 class="big">${esc(t('winTitle'))}</h1>
-    <p class="summary">${esc(t('winSummary', { name: firstName, turns: result.turns, time: formatMs(result.activeMs) }))}</p>
+    <p class="summary">${esc(t('winSummary', { turns: result.turns, time: formatMs(result.activeMs) }))}</p>
     ${result.rank ? `<p class="rank">${esc(t('winRank', { rank: result.rank }))}</p>` : ''}
     ${prizeHtml}`;
 

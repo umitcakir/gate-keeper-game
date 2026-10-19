@@ -62,4 +62,5 @@ export const api = {
     call<{ status: 'lost'; finale?: string; result: AttemptResult }>('POST', `/api/attempt/${id}/end`, { reason }),
   claim: (id: string, pin: string, give: boolean) =>
     call<{ claimed: boolean; prizesRemaining: number }>('POST', `/api/attempt/${id}/claim`, { pin, give }),
+  kioskExit: (pin: string) => call<{ ok: true }>('POST', '/api/kiosk/exit', { pin }),
 };

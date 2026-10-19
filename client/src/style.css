@@ -199,6 +199,14 @@ blockquote cite { display: block; margin-top: 0.5rem; font-size: 0.85em; color: 
 .again { color: var(--muted); }
 
 /* ---------- modal ---------- */
+/* Staff exit (kiosk mode only), bottom-left corner. */
+#kiosk-exit {
+  position: fixed; left: 1.2vw; bottom: 2vh; z-index: 5; width: 3.4rem; height: 3.4rem; border-radius: 50%;
+  border: 2px solid var(--panel-edge); background: var(--panel); color: var(--gold); display: grid; place-items: center; padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45); opacity: 0.8; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+}
+#kiosk-exit:hover { opacity: 1; transform: scale(1.08); }
+
 .modal-backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: rgba(5, 2, 15, 0.7); animation: fade 0.2s; }
 @keyframes fade { from { opacity: 0; } }
 .modal { width: min(720px, 90vw); max-height: 86vh; overflow: auto; background: #1e1540; border: 3px solid var(--panel-edge); border-radius: var(--radius); padding: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }

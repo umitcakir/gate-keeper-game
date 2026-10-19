@@ -14,7 +14,8 @@ Read [README.md](README.md) and [ROADMAP.md](ROADMAP.md) first. Design docs live
 - Scoring lives in `server/src/engine.ts` (pure, unit-tested). The LLM only classifies; don't ask it for numbers.
 
 ## Commands
-- `npm run dev` (API :8080 + Vite :5173) · `npm test` · `npm run typecheck` · `npm run eval` (needs LM Studio, ~3 min) · `npm run build`
+- `npm run dev` (API :8080 + Vite :5173) · `npm test` · `npm run typecheck` · `npm run eval` (needs LM Studio, ~3 min) · `npm run build` (self-contained `dist/`; kiosk launchers in `deploy/` are copied there) · `npm run build:exe` (single executables in `release/`)
+- The kiosk launcher (watchdog, blocked shortcuts, PIN-only exit) is `server/src/kiosk/launcher.ts`, shared by `dist/` and the executables; Windows key blocking is `server/src/kiosk/windows-helper.ps1`.
 - Server runs `.ts` directly with Node's type stripping: use `.ts` import extensions and erasable syntax only (no enums or parameter properties).
 
 ## Environment
