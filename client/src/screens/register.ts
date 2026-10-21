@@ -6,20 +6,25 @@ import { play } from './play.ts';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^\+?[\d\s().-]{7,20}$/;
+const MIN_AGE = 18;
+
+const MAX_LEN: Partial<Record<string, number>> = { email: 120, phone: 20, birthYear: 4 };
 
 interface FormValues {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  birthYear: string;
   kvkkConsent: boolean;
+  ageConfirmed: boolean;
 }
 
 export const register: Screen = (ctx) => {
   ctx.hud.hidden = true;
   ctx.scene.setMood('neutral');
   ctx.speech.say(getLang() === 'tr' ? 'Önce bir tanışalım bakalım, evlat...' : "First, let's get acquainted, kid...");
-  let values: FormValues = { firstName: '', lastName: '', email: '', phone: '', kvkkConsent: false };
+  let values: FormValues = { firstName: '', lastName: '', email: '', phone: '', birthYear: '', kvkkConsent: false, ageConfirmed: false };
   let busy = false;
 
   const render = (focus: string = 'firstName') => {
@@ -38,7 +43,15 @@ export const register: Screen = (ctx) => {
           ${field('lastName', 'text', 'family-name')}
         </div>
         ${field('email', 'email', 'off')}
-        ${field('phone', 'tel', 'off', t('phonePh'))}
+        <div class="row">
+          ${field('phone', 'tel', 'off', t('phonePh'))}
+          ${field('birthYear', 'text', 'off', t('birthYearPh'), 'inputmode="numeric"')}
+        </div>
+        <label class="check">
+          <input type="checkbox" name="ageConfirmed" ${values.ageConfirmed ? 'checked' : ''} />
+          <span>${esc(t('ageLabel'))} *</span>
+        </label>
+        <small class="err" data-err="ageConfirmed"></small>
         <label class="check">
           <input type="checkbox" name="kvkkConsent" ${values.kvkkConsent ? 'checked' : ''} />
           <span>${esc(t('kvkkLabel')).replace('{link}', `<button type="button" class="link" id="kvkk">${esc(t('kvkkLink'))}</button>`)} *</span>
@@ -84,11 +97,11 @@ export const register: Screen = (ctx) => {
     ctx.panel.querySelector<HTMLInputElement>(`[name="${focus}"]`)?.focus();
   };
 
-  const field = (name: keyof FormValues, type: string, autocomplete: string, placeholder = '') => `
+  const field = (name: keyof FormValues, type: string, autocomplete: string, placeholder = '', attrs = '') => `
     <label class="field">
       <span>${esc(t(name as StringKey))} *</span>
       <input name="${name}" type="${type}" autocomplete="${autocomplete}" placeholder="${esc(placeholder)}"
-        value="${esc(String(values[name]))}" maxlength="${name === 'email' ? 120 : name === 'phone' ? 20 : 60}" spellcheck="false" />
+        value="${esc(String(values[name]))}" maxlength="${MAX_LEN[name] ?? 60}" spellcheck="false" ${attrs} />
       <small class="err" data-err="${name}"></small>
     </label>`;
 
@@ -99,7 +112,9 @@ export const register: Screen = (ctx) => {
       lastName: String(fd.get('lastName') ?? '').trim(),
       email: String(fd.get('email') ?? '').trim(),
       phone: String(fd.get('phone') ?? '').trim(),
+      birthYear: String(fd.get('birthYear') ?? '').trim(),
       kvkkConsent: fd.get('kvkkConsent') === 'on',
+      ageConfirmed: fd.get('ageConfirmed') === 'on',
     };
   };
 
@@ -121,6 +136,11 @@ export const register: Screen = (ctx) => {
     if (values.lastName.length < 2) errors.lastName = 'errRequired';
     if (!EMAIL_RE.test(values.email)) errors.email = 'errEmail';
     if (!PHONE_RE.test(values.phone)) errors.phone = 'errPhone';
+    const year = Number(values.birthYear);
+    const thisYear = new Date().getFullYear();
+    if (!/^\d{4}$/.test(values.birthYear) || year < 1900 || year > thisYear) errors.birthYear = 'errBirthYear';
+    else if (thisYear - year < MIN_AGE) errors.birthYear = 'errAge';
+    if (!values.ageConfirmed) errors.ageConfirmed = 'errAge';
     if (!values.kvkkConsent) errors.kvkkConsent = 'errConsent';
     showErrors(errors);
     if (Object.keys(errors).length) {
@@ -135,9 +155,9 @@ export const register: Screen = (ctx) => {
     } catch (err) {
       busy = false;
       if (err instanceof ApiError && err.body.errors) {
-        const map: Record<string, StringKey> = { firstName: 'errRequired', lastName: 'errRequired', email: 'errEmail', phone: 'errPhone', kvkkConsent: 'errConsent' };
+        const map: Record<string, StringKey> = { firstName: 'errRequired', lastName: 'errRequired', email: 'errEmail', phone: 'errPhone', birthYear: 'errBirthYear', ageConfirmed: 'errAge', kvkkConsent: 'errConsent' };
         const errors = err.body.errors as Record<string, string>;
-        showErrors(Object.fromEntries(Object.entries(errors).map(([k, v]) => [k, v === 'already_won' ? 'errAlreadyWon' : (map[k] ?? 'errGeneric')])));
+        showErrors(Object.fromEntries(Object.entries(errors).map(([k, v]) => [k, v === 'already_won' ? 'errAlreadyWon' : v === 'under_age' ? 'errAge' : (map[k] ?? 'errGeneric')])));
       } else {
         $(ctx.panel, '#form-err').textContent = t('errGeneric');
       }

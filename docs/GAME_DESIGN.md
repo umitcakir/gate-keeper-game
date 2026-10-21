@@ -23,7 +23,7 @@ shouldn't work, and the monster should roast anyone who tries it.
 | Screen | Content | Exit |
 |---|---|---|
 | **Attract** | The monster idles and grumbles. A rotating TR/EN tagline. A mini leaderboard (today's top 5). | Enter / any key → Register |
-| **Register** | Name, surname, email, phone, language toggle (TR/EN), KVKK consent checkbox (required) + link to the full notice. Keyboard-first: Tab/Enter. | Valid submit → Play. Esc or 60 s idle → Attract (form is cleared). |
+| **Register** | Name, surname, email, phone, year of birth (18+ only), language toggle (TR/EN), 18+ confirmation and KVKK consent checkboxes (both required) + link to the full notice. Keyboard-first: Tab/Enter. | Valid submit → Play. Esc or 60 s idle → Attract (form is cleared). |
 | **Play** | Top: monster + gate (Phaser canvas). Bottom: chat log + input (max 200 characters). HUD: trust meter 0–100, messages left, countdown. | Win / Lose / 60 s idle → Lose |
 | **Win** | Gate-opening animation, confetti, rank on the leaderboard. "Show this screen to our staff". If today's prizes are gone: "No gifts left today, but you're a legend on the board." | **Staff only**: `Ctrl+Shift+P` + staff PIN → marks the prize as given → Attract. (No gift due → back to Attract after 20 s.) |
 | **Lose** | The monster's farewell roast, the player's final trust %, "Try again, the queue is behind you 😄". | 8 s → Attract |

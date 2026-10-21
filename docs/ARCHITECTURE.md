@@ -77,7 +77,7 @@ All JSON. Game routes take an `attemptId` that the server issues; the server kee
 
 | Method & path | Body | Returns |
 |---|---|---|
-| `POST /api/register` | `{firstName,lastName,email,phone,lang,kvkkConsent}` | `{attemptId, greeting, limits}`, or 400 with field errors |
+| `POST /api/register` | `{firstName,lastName,email,phone,birthYear,lang,kvkkConsent,ageConfirmed}` | `{attemptId, greeting, limits}`, or 400 with field errors |
 | `POST /api/attempt/:id/message` | `{text}` | `{reply, mood, trust, turn, messagesLeft, timeLeftMs, status: "playing"\|"won"\|"lost"}` |
 | `POST /api/attempt/:id/abandon` | — | `{status:"lost"}` (idle timeout / Esc) |
 | `GET  /api/leaderboard` | — | `{winners:[{name,messages,durationMs}], closest:[{name,trust}]}` |
@@ -145,6 +145,8 @@ CREATE TABLE players (
   lang TEXT NOT NULL CHECK (lang IN ('tr','en')),
   kvkk_consent_at TEXT NOT NULL,          -- ISO timestamp + notice version
   kvkk_notice_version TEXT NOT NULL,
+  age_confirmed_at TEXT,                  -- 18+ self-declaration (NULL only for rows from before it existed)
+  birth_year INTEGER,                     -- year only (KVKK notice v3); NULL for older rows
   created_at TEXT NOT NULL
 );
 CREATE UNIQUE INDEX players_email ON players(lower(email));
@@ -158,7 +160,10 @@ CREATE TABLE attempts (
   trust INTEGER NOT NULL DEFAULT 0,
   turns INTEGER NOT NULL DEFAULT 0,
   active_ms INTEGER NOT NULL DEFAULT 0,
-  prize_claimed_at TEXT                   -- set when staff confirm
+  prize_claimed_at TEXT,                  -- set when staff confirm
+  kvkk_consent_at TEXT,                   -- snapshot of the player's acknowledgements for this attempt
+  kvkk_notice_version TEXT,
+  age_confirmed_at TEXT
 );
 
 CREATE TABLE messages (

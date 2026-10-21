@@ -21,6 +21,9 @@ const STRINGS = {
   email: { tr: 'E-posta', en: 'Email' },
   phone: { tr: 'Telefon', en: 'Phone' },
   phonePh: { tr: '05xx xxx xx xx', en: '+90 5xx xxx xx xx' },
+  birthYear: { tr: 'Doğum yılı', en: 'Year of birth' },
+  birthYearPh: { tr: 'ör. 1995', en: 'e.g. 1995' },
+  ageLabel: { tr: '18 yaşından büyük olduğumu onaylıyorum.', en: 'I confirm that I am 18 or older.' },
   kvkkLabel: {
     tr: "{link}'ni okudum ve anladım.",
     en: 'I have read and understood the {link}.',
@@ -37,6 +40,8 @@ const STRINGS = {
     tr: 'Bu e-posta ile kapı zaten açıldı! Herkesin bir zafer hakkı var.',
     en: 'This email has already opened the gate! One victory per person.',
   },
+  errBirthYear: { tr: 'Geçerli bir doğum yılı gir', en: 'Enter a valid year of birth' },
+  errAge: { tr: 'Oyun yalnızca 18 yaş ve üzeri katılımcılara açık', en: 'The game is only open to players aged 18 or over' },
   errConsent: { tr: 'Oynamak için aydınlatma metnini okuduğunu onaylaman gerekiyor', en: 'Please confirm that you have read the privacy notice' },
   errGeneric: { tr: 'Bir şeyler ters gitti, tekrar dene.', en: 'Something went wrong, try again.' },
 

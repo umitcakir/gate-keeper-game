@@ -28,32 +28,32 @@
   <ellipse cx="318" cy="292" rx="22" ry="44" transform="rotate(-20 318 292)" fill="#2f5a47"/>
   
   <defs>
-    <clipPath id="glass"><path d="M 313 206 C 314 214 319 222 319 232
-    C 319 248 312 254 312 268 C 312 278 315 283 318 284
-    L 336 284 C 339 283 342 278 342 268
-    C 342 254 335 248 335 232 C 335 222 340 214 341 206 Z"/></clipPath>
+    <clipPath id="glass"><path d="M 308 222 C 309 229 315 236 315 244
+    C 315 254 311 260 311 270 C 311 279 314 283 317 284
+    L 337 284 C 340 283 343 279 343 270
+    C 343 260 339 254 339 244 C 339 236 345 229 346 222 Z"/></clipPath>
     <linearGradient id="tea" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#7a1606"/><stop offset=".45" stop-color="#c8401a"/><stop offset="1" stop-color="#8e1f08"/>
     </linearGradient>
   </defs>
   <!-- saucer -->
-  <ellipse cx="327" cy="288" rx="27" ry="7" fill="#f4f6f6" stroke="#b9c2c1" stroke-width="2"/>
-  <ellipse cx="327" cy="287" rx="21" ry="4.5" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <ellipse cx="327" cy="288" rx="29" ry="7" fill="#f4f6f6" stroke="#b9c2c1" stroke-width="2"/>
+  <ellipse cx="327" cy="287" rx="23" ry="4.5" fill="none" stroke="#c0392b" stroke-width="2"/>
   <!-- teaspoon resting on the saucer -->
   <path d="M 340 288 L 357 280" stroke="#c9ced3" stroke-width="2.5" stroke-linecap="round"/>
   <ellipse cx="337" cy="289" rx="5" ry="2.5" fill="#c9ced3"/>
   <!-- glass with tea -->
   <g clip-path="url(#glass)">
-    <rect x="311" y="206" width="32" height="78" fill="#ffffff" opacity=".28"/>
-    <rect x="311" y="215" width="32" height="78" fill="url(#tea)"/>
-    <ellipse cx="327" cy="215" rx="11" ry="2" fill="#e0662f"/>
-    <path d="M 317 236 C 315 260 316 272 320 279" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+    <rect x="306" y="222" width="42" height="62" fill="#ffffff" opacity=".28"/>
+    <rect x="306" y="230" width="42" height="62" fill="url(#tea)"/>
+    <ellipse cx="327" cy="230" rx="14" ry="2.5" fill="#e0662f"/>
+    <path d="M 318 246 C 314 264 314 274 318 280" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
   </g>
-  <path d="M 313 206 C 314 214 319 222 319 232
-    C 319 248 312 254 312 268 C 312 278 315 283 318 284
-    L 336 284 C 339 283 342 278 342 268
-    C 342 254 335 248 335 232 C 335 222 340 214 341 206 Z" fill="none" stroke="#dfe7e6" stroke-width="2" stroke-linejoin="round"/>
-  <ellipse cx="327" cy="206" rx="14" ry="2.5" fill="#ffffff" fill-opacity=".25" stroke="#eef3f2" stroke-width="1.5"/>
+  <path d="M 308 222 C 309 229 315 236 315 244
+    C 315 254 311 260 311 270 C 311 279 314 283 317 284
+    L 337 284 C 340 283 343 279 343 270
+    C 343 260 339 254 339 244 C 339 236 345 229 346 222 Z" fill="none" stroke="#dfe7e6" stroke-width="2" stroke-linejoin="round"/>
+  <ellipse cx="327" cy="222" rx="19" ry="3" fill="#ffffff" fill-opacity=".25" stroke="#eef3f2" stroke-width="1.5"/>
   <!-- hand under the saucer -->
   <circle cx="327" cy="302" r="15" fill="#2f5a47"/>
   

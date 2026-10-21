@@ -1,59 +1,56 @@
-PRIVACY NOTICE ON THE PROCESSING OF PERSONAL DATA FOR THE AI-BASED "GATE OF GULYABANI" GAME EVENT
-
-(This is an English translation for convenience. In case of any discrepancy, the Turkish text prevails.)
+PRIVACY NOTICE ON THE PROCESSING OF PERSONAL DATA IN CONNECTION WITH THE AI-POWERED “THE GATE OF GULYABANI” GAME EVENT
 
 1. Data Controller
 
-Under Personal Data Protection Law No. 6698 ("KVKK"), your personal data is processed by Sisal Technology Yazılım Anonim Şirketi (the "Company") within the scope and for the purposes described below.
+Pursuant to Personal Data Protection Law No. 6698 (“PDPL”), your personal data are processed by Sisal Technology Yazılım Anonim Şirketi (“Company”) for the purposes and within the scope explained below.
 
 2. Personal Data Processed and Purposes of Processing
 
-The following personal data is processed in connection with your participation in the AI-based game event called Gate of Gulyabani:
-• Identity data: Your first name and surname.
-• Contact data: Your email address and phone number.
-• Game data: The texts you type into the system during the game, your game inputs and the results produced in the game.
+In connection with your participation in the AI-powered game event entitled “The gate of Gulyabani”, the following categories of personal data are processed:
+• Identity data: Your first and last name.
+• Contact data: Your email address and telephone number.
+• Game data: Texts entered into the system during the game, your game inputs, and the results generated within the scope of the game.
+• Birth year: The year that you born.
 
-Your personal data is processed to enable your participation in the game, run the game, evaluate the game results, determine the winners and announce the results.
+Your personal data are processed for the purposes of enabling your participation in the game, operating the game, evaluating game results, determining the winners, and announcing the results.
 
-Your personal data is not used for advertising, marketing or promotional purposes.
+Your personal data are not used for advertising, marketing, or promotional purposes.
 
-3. Method and Legal Basis of Processing
+3. Method and Legal Basis for Processing Personal Data
 
-Your personal data is collected and processed electronically during your participation in the game, through the computer at the event venue.
+Your personal data are collected directly from you and processed electronically through the computer located at the event venue during your participation in the game.
 
-Your personal data is processed locally by the Company on the computer at the event venue and is not transferred to third parties. Your personal data is processed locally on the computer at the event venue, provided that the technical design of the software used allows this and no data is transferred to external servers.
+Your personal data are processed locally by the Company on the computer located at the event venue and are not transferred to third parties. Local processing on the computer at the event venue is carried out provided that the technical architecture of the software used supports such processing and no data are transferred to external servers.
 
-Your personal data is collected directly from you and processed electronically during your participation in the game, through the computer at the event venue.
+Your personal data are processed for the purposes of enabling participation in the game, operating the game, evaluating game results, and determining the winners, on the legal basis set out in Article 5(2)(f) of Personal Data Protection Law No. 6698, namely that processing is necessary for the legitimate interests pursued by the data controller, provided that such processing does not prejudice the fundamental rights and freedoms of the data subject.
 
-Your personal data is processed to enable participation in the game, run the game, evaluate the game results and determine the winners, based on Article 5(2)(f) of Personal Data Protection Law No. 6698: processing is necessary for the legitimate interests of the data controller, provided that it does not harm the fundamental rights and freedoms of the data subject.
+4. Transfer of Personal Data and Display on the Results Screen
 
-4. Transfer of Personal Data and Display on the Result Screen
+Your personal data are not transferred to third parties in connection with the organisation and operation of the event.
 
-Your personal data is not transferred to third parties in the course of running the event.
+For the purpose of announcing the winners, only the initials of your first and last name are displayed on the game results screen. Your full first and last name, email address, telephone number, and the texts you enter during the game are not displayed on the results screen.
 
-To announce the winners, only the initials of your first name and surname are shown on the game's result screen. Your full name and surname, email address, phone number and the texts you type during the game are not shown on the result screen.
+5. Retention and Erasure of Personal Data
 
-5. Retention Period and Destruction of Personal Data
+Your personal data are retained for the period necessary to enable participation in the game, operate the game, evaluate game results, and determine the winners.
 
-Your personal data is kept for as long as necessary to enable participation in the game, run the game, evaluate the game results and determine the winners.
+For this purpose, your personal data are retained for a maximum period of 60 days from the date on which the game results become final. If the purpose of processing ceases to exist earlier, your personal data will be erased, destroyed, or anonymised without waiting for the expiry of the 60-day period.
 
-Accordingly, your personal data is kept for at most 30 days after the game results are finalised. If the purpose of processing ends earlier, your personal data is deleted, destroyed or anonymised without waiting for the 30-day period to end.
+Records that must be retained pursuant to applicable legislation or whose retention is necessary for the establishment, exercise, or protection of a right will be retained only for the period required by the relevant legal necessity. Once the reason for retention ceases to exist, your personal data will be erased, destroyed, or anonymised in accordance with applicable legislation.
 
-Records that must be kept under the applicable legislation, or that must be kept to establish, exercise or protect a right, are kept only for as long as that legal requirement demands. Once the reason for keeping them no longer applies, your personal data is deleted, destroyed or anonymised in accordance with the applicable legislation.
+6. Your Rights Under Article 11 of the PDPL
 
-6. Your Rights Under Article 11 of KVKK
+Pursuant to Article 11 of the PDPL, you have the right to apply to the Company to:
+• Learn whether your personal data are being processed;
+• Request information if your personal data have been processed;
+• Learn the purpose of processing your personal data and whether they are used in accordance with that purpose;
+• Know the third parties to whom your personal data have been transferred, whether within Türkiye or abroad;
+• Request the rectification of incomplete or inaccurate personal data;
+• Request the erasure or destruction of your personal data within the scope of Article 7 of the PDPL;
+• Request that third parties to whom your personal data have been transferred be notified of any rectification, erasure, or destruction;
+• Object to a result arising to your detriment from the analysis of your processed personal data exclusively through automated systems; and
+• Claim compensation for any damage incurred as a result of unlawful processing of your personal data.
 
-Under Article 11 of KVKK, you have the right to apply to the Company to:
-• Learn whether your personal data is processed,
-• Request information about it if your personal data has been processed,
-• Learn the purpose of processing your personal data and whether it is used in line with that purpose,
-• Know the third parties in Turkey or abroad to whom your personal data is transferred,
-• Request the correction of your personal data if it is incomplete or inaccurate,
-• Request the deletion or destruction of your personal data under Article 7 of KVKK,
-• Request that third parties to whom your personal data was transferred be notified of any correction, deletion or destruction,
-• Object to a result against you arising from the analysis of your data exclusively through automated systems,
-• Claim compensation if you suffer damage due to unlawful processing of your personal data.
-
-You can send your requests regarding these rights to the Company at ik@sisal.com. Your requests will be evaluated and concluded in accordance with the procedures and principles set out in KVKK and the related legislation.
+You may submit your requests concerning these rights to the Company via ik@sisal.com. Your applications will be evaluated and concluded in accordance with the procedures and principles set out in the PDPL and applicable legislation.
 
 Sisal Technology Yazılım Anonim Şirketi

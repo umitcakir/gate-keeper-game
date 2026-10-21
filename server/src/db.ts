@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS players (
   lang TEXT NOT NULL CHECK (lang IN ('tr','en')),
   kvkk_consent_at TEXT NOT NULL,
   kvkk_notice_version TEXT NOT NULL,
+  age_confirmed_at TEXT,
+  birth_year INTEGER,
   created_at TEXT NOT NULL
 );
 CREATE UNIQUE INDEX IF NOT EXISTS players_email ON players(lower(email));
@@ -36,7 +38,10 @@ CREATE TABLE IF NOT EXISTS attempts (
   trust INTEGER NOT NULL DEFAULT 0,
   turns INTEGER NOT NULL DEFAULT 0,
   active_ms INTEGER NOT NULL DEFAULT 0,
-  prize_claimed_at TEXT
+  prize_claimed_at TEXT,
+  kvkk_consent_at TEXT,
+  kvkk_notice_version TEXT,
+  age_confirmed_at TEXT
 );
 CREATE INDEX IF NOT EXISTS attempts_started ON attempts(started_at);
 
@@ -58,6 +63,16 @@ CREATE INDEX IF NOT EXISTS messages_attempt ON messages(attempt_id);
 
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 `);
+
+/** Adds columns introduced after the first event DB was created (CREATE TABLE IF NOT EXISTS skips them). */
+function addMissingColumns(table: string, columns: Record<string, string>): void {
+  const have = new Set((db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]).map((c) => c.name));
+  for (const [name, type] of Object.entries(columns)) {
+    if (!have.has(name)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${type}`);
+  }
+}
+addMissingColumns('players', { age_confirmed_at: 'TEXT', birth_year: 'INTEGER' });
+addMissingColumns('attempts', { kvkk_consent_at: 'TEXT', kvkk_notice_version: 'TEXT', age_confirmed_at: 'TEXT' });
 
 const now = () => new Date().toISOString();
 
@@ -96,6 +111,7 @@ export interface PlayerInput {
   lastName: string;
   email: string;
   phone: string;
+  birthYear: number;
   lang: Lang;
 }
 
@@ -106,18 +122,26 @@ export interface PlayerRow {
   email: string;
   phone: string;
   lang: Lang;
+  kvkk_consent_at: string;
+  kvkk_notice_version: string;
+  age_confirmed_at: string | null;
+  birth_year: number | null;
 }
 
-/** Insert, or update the existing player with the same email (returning players replay). */
+/**
+ * Insert, or update the existing player with the same email (returning players replay).
+ * Only called after the form's KVKK acknowledgement and 18+ confirmation, so both are stamped with the submit time.
+ */
 export function upsertPlayer(p: PlayerInput): PlayerRow {
   const ts = now();
   db.prepare(
-    `INSERT INTO players (first_name, last_name, email, phone, lang, kvkk_consent_at, kvkk_notice_version, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO players (first_name, last_name, email, phone, lang, kvkk_consent_at, kvkk_notice_version, age_confirmed_at, birth_year, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(lower(email)) DO UPDATE SET
        first_name = excluded.first_name, last_name = excluded.last_name, phone = excluded.phone, lang = excluded.lang,
-       kvkk_consent_at = excluded.kvkk_consent_at, kvkk_notice_version = excluded.kvkk_notice_version`,
-  ).run(p.firstName, p.lastName, p.email, p.phone, p.lang, ts, config.kvkkNoticeVersion, ts);
+       kvkk_consent_at = excluded.kvkk_consent_at, kvkk_notice_version = excluded.kvkk_notice_version,
+       age_confirmed_at = excluded.age_confirmed_at, birth_year = excluded.birth_year`,
+  ).run(p.firstName, p.lastName, p.email, p.phone, p.lang, ts, config.kvkkNoticeVersion, ts, p.birthYear, ts);
   return db.prepare('SELECT * FROM players WHERE lower(email) = lower(?)').get(p.email) as unknown as PlayerRow;
 }
 
@@ -132,11 +156,18 @@ export interface AttemptRow {
   turns: number;
   active_ms: number;
   prize_claimed_at: string | null;
+  /** Snapshot of the player's acknowledgements for this attempt (the player row only keeps the latest). */
+  kvkk_consent_at: string | null;
+  kvkk_notice_version: string | null;
+  age_confirmed_at: string | null;
 }
 
 export function createAttempt(playerId: number): AttemptRow {
   const id = crypto.randomUUID();
-  db.prepare("INSERT INTO attempts (id, player_id, started_at, status) VALUES (?, ?, ?, 'playing')").run(id, playerId, now());
+  db.prepare(
+    `INSERT INTO attempts (id, player_id, started_at, status, kvkk_consent_at, kvkk_notice_version, age_confirmed_at)
+     SELECT ?, id, ?, 'playing', kvkk_consent_at, kvkk_notice_version, age_confirmed_at FROM players WHERE id = ?`,
+  ).run(id, now(), playerId);
   return getAttempt(id)!;
 }
 
@@ -310,8 +341,8 @@ export function recentAttempts(limit = 30) {
 export function exportRows() {
   return db
     .prepare(
-      `SELECT p.id, p.first_name, p.last_name, p.email, p.phone, p.lang, p.kvkk_consent_at, p.kvkk_notice_version,
-              p.created_at, count(a.id) AS attempts, sum(a.status = 'won') AS wins, max(a.trust) AS best_trust,
+      `SELECT p.id, p.first_name, p.last_name, p.email, p.phone, p.birth_year, p.lang, p.kvkk_consent_at, p.kvkk_notice_version,
+              p.age_confirmed_at, p.created_at, count(a.id) AS attempts, sum(a.status = 'won') AS wins, max(a.trust) AS best_trust,
               max(a.prize_claimed_at) AS prize_claimed_at
        FROM players p LEFT JOIN attempts a ON a.player_id = p.id
        GROUP BY p.id ORDER BY p.created_at`,

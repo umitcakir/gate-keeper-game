@@ -55,7 +55,7 @@ export const api = {
   leaderboard: () => call<Leaderboard>('GET', '/api/leaderboard'),
   kvkk: (lang: Lang) => call<string>('GET', `/api/kvkk/${lang}`),
   register: (body: {
-    firstName: string; lastName: string; email: string; phone: string; lang: Lang; kvkkConsent: boolean;
+    firstName: string; lastName: string; email: string; phone: string; birthYear: string; lang: Lang; kvkkConsent: boolean; ageConfirmed: boolean;
   }) => call<RegisterResult>('POST', '/api/register', body),
   message: (id: string, text: string) => call<MessageResult>('POST', `/api/attempt/${id}/message`, { text }),
   end: (id: string, reason: 'time' | 'idle' | 'abandon') =>

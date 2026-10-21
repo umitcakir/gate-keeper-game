@@ -117,13 +117,13 @@ function extras(mood: Mood): string {
 
 /** Turkish tulip tea glass: flared rim, narrow waist, round belly; red-amber tea; saucer with a red rim and a teaspoon. */
 function teaGlass(cx: number, steam: boolean): string {
-  const top = 206;
+  const top = 222;
   const bottom = 284;
   // Right half of the silhouette (x offsets from cx), mirrored for the left half.
-  const right = `L ${cx + 9} ${bottom} C ${cx + 12} ${bottom - 1} ${cx + 15} ${bottom - 6} ${cx + 15} ${bottom - 16}
-    C ${cx + 15} ${bottom - 30} ${cx + 8} ${bottom - 36} ${cx + 8} ${top + 26} C ${cx + 8} ${top + 16} ${cx + 13} ${top + 8} ${cx + 14} ${top}`;
-  const glass = `M ${cx - 14} ${top} C ${cx - 13} ${top + 8} ${cx - 8} ${top + 16} ${cx - 8} ${top + 26}
-    C ${cx - 8} ${bottom - 36} ${cx - 15} ${bottom - 30} ${cx - 15} ${bottom - 16} C ${cx - 15} ${bottom - 6} ${cx - 12} ${bottom - 1} ${cx - 9} ${bottom}
+  const right = `L ${cx + 10} ${bottom} C ${cx + 13} ${bottom - 1} ${cx + 16} ${bottom - 5} ${cx + 16} ${bottom - 14}
+    C ${cx + 16} ${bottom - 24} ${cx + 12} ${bottom - 30} ${cx + 12} ${top + 22} C ${cx + 12} ${top + 14} ${cx + 18} ${top + 7} ${cx + 19} ${top}`;
+  const glass = `M ${cx - 19} ${top} C ${cx - 18} ${top + 7} ${cx - 12} ${top + 14} ${cx - 12} ${top + 22}
+    C ${cx - 12} ${bottom - 30} ${cx - 16} ${bottom - 24} ${cx - 16} ${bottom - 14} C ${cx - 16} ${bottom - 5} ${cx - 13} ${bottom - 1} ${cx - 10} ${bottom}
     ${right} Z`;
   return `
   <defs>
@@ -133,20 +133,20 @@ function teaGlass(cx: number, steam: boolean): string {
     </linearGradient>
   </defs>
   <!-- saucer -->
-  <ellipse cx="${cx}" cy="${bottom + 4}" rx="27" ry="7" fill="#f4f6f6" stroke="#b9c2c1" stroke-width="2"/>
-  <ellipse cx="${cx}" cy="${bottom + 3}" rx="21" ry="4.5" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <ellipse cx="${cx}" cy="${bottom + 4}" rx="29" ry="7" fill="#f4f6f6" stroke="#b9c2c1" stroke-width="2"/>
+  <ellipse cx="${cx}" cy="${bottom + 3}" rx="23" ry="4.5" fill="none" stroke="#c0392b" stroke-width="2"/>
   <!-- teaspoon resting on the saucer -->
   <path d="M ${cx + 13} ${bottom + 4} L ${cx + 30} ${bottom - 4}" stroke="#c9ced3" stroke-width="2.5" stroke-linecap="round"/>
   <ellipse cx="${cx + 10}" cy="${bottom + 5}" rx="5" ry="2.5" fill="#c9ced3"/>
   <!-- glass with tea -->
   <g clip-path="url(#glass)">
-    <rect x="${cx - 16}" y="${top}" width="32" height="${bottom - top}" fill="#ffffff" opacity=".28"/>
-    <rect x="${cx - 16}" y="${top + 9}" width="32" height="${bottom - top}" fill="url(#tea)"/>
-    <ellipse cx="${cx}" cy="${top + 9}" rx="11" ry="2" fill="#e0662f"/>
-    <path d="M ${cx - 10} ${top + 30} C ${cx - 12} ${bottom - 24} ${cx - 11} ${bottom - 12} ${cx - 7} ${bottom - 5}" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+    <rect x="${cx - 21}" y="${top}" width="42" height="${bottom - top}" fill="#ffffff" opacity=".28"/>
+    <rect x="${cx - 21}" y="${top + 8}" width="42" height="${bottom - top}" fill="url(#tea)"/>
+    <ellipse cx="${cx}" cy="${top + 8}" rx="14" ry="2.5" fill="#e0662f"/>
+    <path d="M ${cx - 9} ${top + 24} C ${cx - 13} ${bottom - 20} ${cx - 13} ${bottom - 10} ${cx - 9} ${bottom - 4}" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
   </g>
   <path d="${glass}" fill="none" stroke="#dfe7e6" stroke-width="2" stroke-linejoin="round"/>
-  <ellipse cx="${cx}" cy="${top}" rx="14" ry="2.5" fill="#ffffff" fill-opacity=".25" stroke="#eef3f2" stroke-width="1.5"/>
+  <ellipse cx="${cx}" cy="${top}" rx="19" ry="3" fill="#ffffff" fill-opacity=".25" stroke="#eef3f2" stroke-width="1.5"/>
   <!-- hand under the saucer -->
   <circle cx="${cx}" cy="${bottom + 18}" r="15" fill="${FUR_DARK}"/>
   ${steam ? `<path d="M ${cx - 5} ${top - 6} Q ${cx - 11} ${top - 20} ${cx - 3} ${top - 30} M ${cx + 7} ${top - 6} Q ${cx + 13} ${top - 22} ${cx + 5} ${top - 34}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/>` : ''}`;

@@ -10,6 +10,7 @@ Yapay zeka tabanlı Gulyabani’nin Kapısı isimli oyun etkinliğine katılım�
 • Kimlik verileri: Adınız ve soyadınız.
 • İletişim verileri: E-posta adresiniz ve telefon numaranız.
 • Oyun verileri: Oyun sırasında sisteme yazdığınız metinler, oyun girdileriniz ve oyun kapsamında oluşan sonuçlar.
+• Doğum yılı verileri: Doğum yılınız
 
 Kişisel verileriniz; oyuna katılımınızın sağlanması, oyunun yürütülmesi, oyun sonuçlarının değerlendirilmesi, kazananların belirlenmesi ve sonuçların duyurulması amaçlarıyla işlenmektedir.
 
@@ -35,7 +36,7 @@ Kazananların duyurulması amacıyla oyun sonuç ekranında yalnızca adınızı
 
 Kişisel verileriniz, oyuna katılımın sağlanması, oyunun yürütülmesi, oyun sonuçlarının değerlendirilmesi ve kazananların belirlenmesi amaçları için gerekli süre boyunca muhafaza edilir.
 
-Bu kapsamda kişisel verileriniz, oyun sonuçlarının kesinleşmesinden itibaren en fazla 30 gün süreyle saklanır. İşleme amacının daha önce sona ermesi hâlinde kişisel verileriniz, 30 günlük sürenin tamamlanması beklenmeksizin silinir, yok edilir veya anonim hale getirilir.
+Bu kapsamda kişisel verileriniz, oyun sonuçlarının kesinleşmesinden itibaren en fazla 60 gün süreyle saklanır. İşleme amacının daha önce sona ermesi hâlinde kişisel verileriniz, 60 günlük sürenin tamamlanması beklenmeksizin silinir, yok edilir veya anonim hale getirilir.
 
 İlgili mevzuat uyarınca saklanması zorunlu olan veya bir hakkın tesisi, kullanılması ya da korunması için muhafazası gerekli olan kayıtlar, yalnızca ilgili hukuki gerekliliğin gerektirdiği süre boyunca saklanır. Saklama sebebinin ortadan kalkmasıyla birlikte kişisel verileriniz, ilgili mevzuata uygun olarak silinir, yok edilir veya anonim hâle getirilir.
 

@@ -20,13 +20,26 @@ export function normalizePhone(raw: string): string | null {
   return digits.startsWith('+') ? digits : `+${d}`;
 }
 
+export const MIN_AGE = 18;
+
+/** Year-only check: someone born in `year - 18` may still be 17, which the 18+ checkbox covers. */
+export function checkBirthYear(raw: unknown, year = new Date().getFullYear()): number | 'invalid' | 'under_age' {
+  const s = typeof raw === 'number' ? String(raw) : typeof raw === 'string' ? raw.trim() : '';
+  if (!/^\d{4}$/.test(s)) return 'invalid';
+  const y = Number(s);
+  if (y < 1900 || y > year) return 'invalid';
+  return year - y < MIN_AGE ? 'under_age' : y;
+}
+
 interface RegisterBody {
   firstName?: string;
   lastName?: string;
   email?: string;
   phone?: string;
+  birthYear?: string | number;
   lang?: string;
   kvkkConsent?: boolean;
+  ageConfirmed?: boolean;
 }
 
 const clean = (v: unknown, max = 60) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, max) : '');
@@ -39,17 +52,20 @@ export async function gameRoutes(app: FastifyInstance) {
     const lastName = clean(b.lastName);
     const email = clean(b.email, 120).toLowerCase();
     const phone = normalizePhone(clean(b.phone, 30));
+    const birthYear = checkBirthYear(b.birthYear);
 
     const errors: Record<string, string> = {};
     if (firstName.length < 2) errors.firstName = 'required';
     if (lastName.length < 2) errors.lastName = 'required';
     if (!EMAIL_RE.test(email)) errors.email = 'invalid';
     if (!phone) errors.phone = 'invalid';
+    if (typeof birthYear !== 'number') errors.birthYear = birthYear;
     if (b.kvkkConsent !== true) errors.kvkkConsent = 'required';
+    if (b.ageConfirmed !== true) errors.ageConfirmed = 'required';
     if (Object.keys(errors).length) return reply.code(400).send({ errors });
     if (store.emailHasWon(email)) return reply.code(409).send({ errors: { email: 'already_won' } });
 
-    return game.startAttempt({ firstName, lastName, email, phone: phone!, lang });
+    return game.startAttempt({ firstName, lastName, email, phone: phone!, birthYear: birthYear as number, lang });
   });
 
   app.post<{ Params: { id: string }; Body: { text?: string } }>('/api/attempt/:id/message', async (req) => {

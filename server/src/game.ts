@@ -13,6 +13,7 @@ interface Live {
   clock: AttemptClock;
   busy: boolean;
   lang: Lang;
+  greeting: string;
   history: HistoryItem[];
   playerTexts: string[];
   categories: Category[];
@@ -35,11 +36,12 @@ export function startAttempt(input: store.PlayerInput) {
   for (const id of live.keys()) live.delete(id);
   const player = store.upsertPlayer(input);
   const attempt = store.createAttempt(player.id);
-  live.set(attempt.id, { clock: new AttemptClock(), busy: false, lang: input.lang, history: [], playerTexts: [], categories: [] });
+  const greeting = line('greeting', input.lang);
+  live.set(attempt.id, { clock: new AttemptClock(), busy: false, lang: input.lang, greeting, history: [], playerTexts: [], categories: [] });
   const s = store.getSettings();
   return {
     attemptId: attempt.id,
-    greeting: line('greeting', input.lang),
+    greeting,
     limits: { maxTurns: s.maxTurns, timeLimitMs: s.timeLimitS * 1000, maxChars: config.maxMessageChars },
   };
 }
@@ -129,7 +131,7 @@ export async function sendMessage(attemptId: string, rawText: string): Promise<M
       mood = 'angry';
     } else {
       const messages = buildMessages(
-        { turn, maxTurns: settings.maxTurns, trust: attempt.trust, lang },
+        { turn, maxTurns: settings.maxTurns, trust: attempt.trust, lang, opening: l.greeting },
         l.history.slice(-config.llmHistoryTurns),
         text,
       );

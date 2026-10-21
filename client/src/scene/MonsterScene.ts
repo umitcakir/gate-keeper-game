@@ -8,7 +8,7 @@ const MOODS: Mood[] = ['angry', 'annoyed', 'neutral', 'amused', 'impressed'];
 
 // Native sizes of the generated SVGs (2x their viewBox).
 const GATE = { w: 1040, h: 1200, openingX: 140, openingY: 140, openingW: 760, torchX: [190, 850], torchY: 170 };
-const MONSTER = { w: 720, h: 840, eyes: [[270, 344], [450, 344]] as const, glassTop: [654, 400] as const };
+const MONSTER = { w: 720, h: 840, eyes: [[270, 344], [450, 344]] as const, glassTop: [654, 432] as const };
 const FONT = 'Fredoka, system-ui, sans-serif';
 
 const lerpColor = (a: number, b: number, t: number) => {
@@ -70,6 +70,10 @@ export class MonsterScene extends Phaser.Scene {
   private blinking = false;
   private gateOpen = false;
   private attractTimer?: Phaser.Time.TimerEvent;
+  // Asleep = the LLM is unreachable. `sleepAmt` eases toward 0/1 so breathing and sway blend in and out.
+  private asleep = false;
+  private sleepAmt = 0;
+  private snoreTimer?: Phaser.Time.TimerEvent;
 
   constructor() {
     super('monster');
@@ -411,12 +415,15 @@ export class MonsterScene extends Phaser.Scene {
     const { floorY, h, w } = this.L;
     // Steps aside (and a little back) when the gate opens.
     const s = this.L.monsterScale * (1 - 0.15 * this.fx.aside);
-    const breath = Math.sin(time / 650);
+    this.sleepAmt += ((this.asleep ? 1 : 0) - this.sleepAmt) * Math.min(1, delta / 500);
+    const z = this.sleepAmt;
+    // Asleep: slower, deeper breaths and a slow dozing sway.
+    const breath = Phaser.Math.Linear(Math.sin(time / 650), Math.sin(time / 1150) * 1.8, z);
     const x = Phaser.Math.Linear(this.L.monsterX, this.L.monsterAsideX, this.fx.aside);
     const sx = s * (1 - 0.008 * breath + this.fx.squash * 0.06);
     const sy = s * (1 + 0.018 * breath - this.fx.squash * 0.08);
     const y = floorY + h * 0.02 - this.fx.hopY;
-    this.monster.setPosition(x, y).setScale(sx, sy);
+    this.monster.setPosition(x, y).setScale(sx, sy).setRotation(z * 0.03 * Math.sin(time / 2300));
     this.shadow.setPosition(x, floorY + h * 0.015).setScale(1 - this.fx.hopY / (h * 0.4));
     // Above the head, between the horns, so the trail points down at him.
     this.bubble.setPosition(x - this.monster.displayWidth * 0.06, y - this.monster.displayHeight * 1.06).setScale(h / 1080);
@@ -427,7 +434,7 @@ export class MonsterScene extends Phaser.Scene {
     this.steam.setPosition(gx, gy).setScale(s / 0.64);
 
     this.lids.clear();
-    if (this.blinking && this.mood !== 'amused') {
+    if (this.asleep || (this.blinking && this.mood !== 'amused')) {
       const r = this.mood === 'impressed' ? 82 : 72;
       for (const [ex, ey] of MONSTER.eyes) {
         const [cx, cy] = pt(ex, ey);
@@ -558,6 +565,51 @@ export class MonsterScene extends Phaser.Scene {
     this.monster.setTexture('monster_neutral');
   }
 
+  /** LLM unreachable: Gulyabani dozes off (closed eyes, slow breathing, floating z's) until it comes back. */
+  setAsleep(on: boolean) {
+    if (on === this.asleep) return;
+    this.asleep = on;
+    this.snoreTimer?.remove();
+    this.snoreTimer = undefined;
+    if (on) {
+      this.setThinking(false);
+      this.mood = 'neutral';
+      this.monster.setTexture('monster_neutral');
+      this.snoreTimer = this.time.addEvent({ delay: 850, loop: true, startAt: 700, callback: () => this.snoreZ() });
+    } else {
+      this.hop(1);
+    }
+  }
+
+  private snoreZ() {
+    const h = this.L.h;
+    const t = this.add
+      .text(this.monster.x + this.monster.displayWidth * 0.2, this.monster.y - this.monster.displayHeight * 0.8, Math.random() < 0.5 ? 'z' : 'Z', {
+        fontFamily: FONT,
+        fontStyle: '600',
+        fontSize: `${Math.round(h * 0.045)}px`,
+        color: '#e8e2ff',
+        stroke: '#120c2e',
+        strokeThickness: Math.round(h * 0.006),
+      })
+      .setOrigin(0.5)
+      .setDepth(11)
+      .setScale(0.4)
+      .setAlpha(0);
+    this.tweens.add({ targets: t, alpha: 0.95, duration: 400 });
+    this.tweens.add({ targets: t, x: t.x + h * 0.06, duration: 900, yoyo: true, ease: 'Sine.easeInOut' });
+    this.tweens.add({
+      targets: t,
+      y: t.y - h * 0.16,
+      scale: 1.1,
+      rotation: 0.25,
+      duration: 2600,
+      ease: 'Sine.easeOut',
+      onComplete: () => t.destroy(),
+    });
+    this.tweens.add({ targets: t, alpha: 0, duration: 900, delay: 1700 });
+  }
+
   /** On the attract screen the monster changes expression now and then, to look alive. */
   setAttract(on: boolean) {
     this.attractTimer?.remove();
@@ -569,6 +621,7 @@ export class MonsterScene extends Phaser.Scene {
       delay: 2600,
       loop: true,
       callback: () => {
+        if (this.asleep) return;
         const mood = idle[i++ % idle.length]!;
         this.setMood(mood);
         if (mood === 'amused') this.hop(1);

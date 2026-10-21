@@ -36,7 +36,7 @@ Copy `.env.example` to `.env` and **change the PINs** before the event.
 ## How a round works
 
 1. **Attract screen**: the monster idles in front of the gate. "Press Enter to play."
-2. **Registration form**: name, surname, email, phone, KVKK consent (required), TR/EN.
+2. **Registration form**: name, surname, email, phone, year of birth, 18+ confirmation and KVKK acknowledgement (both required), TR/EN.
 3. **Play**: the player has up to 10 messages or 3 minutes, whichever runs out first. Every reply moves a **trust meter**.
 4. **Gate opens** when trust reaches 100 → win screen, leaderboard entry, and a staff-confirmed prize (while today's stock lasts).
 5. **Fail**: a funny farewell, then back to the attract screen.

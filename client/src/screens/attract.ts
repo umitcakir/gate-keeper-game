@@ -59,6 +59,7 @@ export const attract: Screen = (ctx) => {
     try {
       const [lb, st] = await Promise.all([api.leaderboard(), api.status()]);
       llmOk = st.llmOk;
+      ctx.scene.setAsleep(!llmOk);
       setVolume(st.volume);
       document.getElementById('board')!.innerHTML = leaderboardHtml(lb);
       document.getElementById('status')!.innerHTML = !st.llmOk
@@ -68,13 +69,15 @@ export const attract: Screen = (ctx) => {
           : '';
     } catch {
       llmOk = false;
+      ctx.scene.setAsleep(true);
       document.getElementById('status')!.innerHTML = `<span class="warn">⚠ ${bi('llmDown')}</span>`;
     }
   };
   void refresh();
   const poll = window.setInterval(refresh, 15_000);
   let quip = Math.floor(Math.random() * QUIPS.length);
-  const sayQuip = () => ctx.speech.say(QUIPS[quip++ % QUIPS.length]!, 4200);
+  // No quips while he's asleep.
+  const sayQuip = () => llmOk && ctx.speech.say(QUIPS[quip++ % QUIPS.length]!, 4200);
   const quipTimer = window.setInterval(sayQuip, 7000);
   const firstQuip = window.setTimeout(sayQuip, 1200);
 
@@ -99,5 +102,6 @@ export const attract: Screen = (ctx) => {
     window.clearTimeout(firstQuip);
     window.removeEventListener('keydown', onKey);
     ctx.scene.setAttract(false);
+    ctx.scene.setAsleep(false);
   };
 };
