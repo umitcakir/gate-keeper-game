@@ -30,8 +30,8 @@ if (existsSync(config.clientDist)) {
 }
 
 await app.listen({ port: config.port, host: config.host });
-console.log(`\n  Gate of Gulyabani on http://localhost:${config.port}  (admin: /admin)\n  LLM: ${config.llmModel} @ ${config.llmBaseUrl}`);
+console.log(`\n  Gate of Gulyabani on http://localhost:${config.port}  (admin: /admin)\n  LLM: ${config.llmModel === 'auto' ? 'whichever model is loaded in LM Studio' : config.llmModel} @ ${config.llmBaseUrl}`);
 
 warmUp().then((r) =>
-  console.log(r.turn ? `  LLM warm-up OK in ${r.latencyMs} ms` : `  ⚠ LLM warm-up FAILED: ${r.error} — is LM Studio running with ${config.llmModel}?`),
+  console.log(r.turn ? `  LLM warm-up OK in ${r.latencyMs} ms` : `  ⚠ LLM warm-up FAILED: ${r.error} — is LM Studio running with ${config.llmModel === 'auto' ? 'a model loaded' : config.llmModel}?`),
 );

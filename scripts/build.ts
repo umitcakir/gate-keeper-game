@@ -16,7 +16,7 @@ for (const f of readdirSync(dist)) if (!keep.has(f)) rmSync(resolve(dist, f), { 
 await build({ configFile: resolve(root, 'vite.config.ts') }); // → dist/public
 
 const copy = (from: string, to = from) => cpSync(resolve(root, from), resolve(dist, to), { recursive: true });
-for (const p of ['server/src', 'server/content', 'scripts/purge.ts', 'scripts/reset-winners.ts', 'package-lock.json', '.env.example']) copy(p);
+for (const p of ['server/src', 'server/content', 'scripts/purge.ts', 'scripts/reset-winners.ts', 'scripts/export-xlsx.ts', 'package-lock.json', '.env.example']) copy(p);
 for (const f of readdirSync(resolve(root, 'deploy'))) copy(`deploy/${f}`, f);
 if (!existsSync(resolve(dist, '.env')) && existsSync(resolve(root, '.env'))) copy('.env');
 writeFileSync(resolve(dist, 'production.env'), 'NODE_ENV=production\n');
@@ -29,6 +29,7 @@ const distPkg = {
     start: `${node} server/src/index.ts`,
     purge: `${node} scripts/purge.ts`,
     'reset-winners': `${node} scripts/reset-winners.ts`,
+    'export-xlsx': `${node} scripts/export-xlsx.ts`,
   },
   // devDependencies stay listed so package-lock.json matches; `npm ci --omit=dev` skips them.
   dependencies: pkg.dependencies, devDependencies: pkg.devDependencies,

@@ -2,7 +2,7 @@
 
 ## Reception PC checklist (day before)
 
-- [ ] LM Studio: `google/gemma-4-e2b` loaded, **thinking disabled** if the option exists, auto-unload/TTL **off**, GPU offload max, context 4096, server on `:1234`.
+- [ ] LM Studio: `google/gemma-4-e2b` loaded (the game uses whichever model is loaded; the admin page shows which), **thinking disabled** if the option exists, auto-unload/TTL **off**, GPU offload max, context 4096, server on `:1234`.
 - [ ] `cp .env.example .env` and set **ADMIN_PIN**, **STAFF_PIN** and **KIOSK_EXIT_PIN** (the defaults 4242/1234/1885 are in the repo).
 - [ ] Build what you'll run on the reception PC (on any machine with the repo, after `npm ci`), either:
   - **Single executable** (simplest, nothing to install): `npm run build:exe` → copy `release/win-x64/` (Windows) or `release/linux-x64/` (Linux) to the reception PC.
@@ -59,13 +59,13 @@ Still not blocked: `Ctrl+Alt+Del` on Windows (its menu still offers Task Manager
 | Symptom | Fix |
 |---|---|
 | Monster says "refilling my tea" every time | LM Studio is down or the model was unloaded → reload the model in LM Studio. The admin page shows LLM status. |
-| Replies very slow (> 10 s) | Check that the GPU is used (LM Studio offload). Close other apps. As a last resort, switch to a smaller model with `LLM_MODEL` env. |
+| Replies very slow (> 10 s) | Check that the GPU is used (LM Studio offload). Close other apps. As a last resort, load a smaller model in LM Studio (the game picks it up on the next message). |
 | Too many winners / nobody wins | Admin panel → difficulty slider (0.7 harder ... 1.3 easier). It applies from the next message. |
 | Prizes ran out | The game keeps running automatically; the Win screen tells winners no gifts are left today. Adjust the cap in admin if more stock arrives. |
 | Screen is stuck | `Ctrl+Shift+X` (staff reset) abandons the current attempt and returns to the attract screen. `Ctrl+Shift+R` (reload) also works. |
 
 ## After the event
 
-- Export the players CSV from the admin page.
+- Export the players CSV from the admin page, or an Excel file with `npm --prefix dist run export-xlsx` (inside `dist/`: `npm run export-xlsx`; single executable: `gulyabani-kiosk --export-xlsx`).
 - Follow the retention plan in [DATA_PRIVACY_KVKK.md](DATA_PRIVACY_KVKK.md): `npm run purge -- --yes [--export backup.csv]` deletes the DB (`dist/data/game.db`; run it in the repo or in `dist/`).
 - Optional: anonymised stats for a fun post (win rate, funniest winning lines, with permission).

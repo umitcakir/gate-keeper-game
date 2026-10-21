@@ -21,6 +21,7 @@
     "chat": "node server/eval/chat.ts",
     "purge": "npm --prefix dist run purge --",
     "reset-winners": "npm --prefix dist run reset-winners --",
+    "export-xlsx": "node --env-file-if-exists=.env scripts/export-xlsx.ts",
     "kiosk": "node scripts/kiosk.ts"
   },
   "dependencies": {

@@ -35,6 +35,7 @@
 ## Export and retention
 
 - The admin page has a **CSV export** of players and their attempts.
+- `npm run export-xlsx -- [--out file.xlsx] [--messages]`: Excel export with a Players and an Attempts sheet (`--messages` adds the chat log). In the repo it reads the dev DB; for the event DB run it in `dist/` (`npm --prefix dist run export-xlsx`). Without `--out` the file goes next to the DB in `data/`. Treat it like the DB: store it encrypted and delete it with the rest.
 - Retention (from the notice): **at most 60 days after the game results are final**, earlier if the purpose ends sooner. Put the purge date in the calendar.
 - `npm run purge -- --yes [--export backup.csv]`: deletes the DB, optionally exporting a CSV first (store that file encrypted).
 - Players can ask for their data to be deleted: the admin page can delete a player by email.

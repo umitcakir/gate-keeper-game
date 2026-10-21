@@ -94,7 +94,7 @@ function readme(exe: string, win: boolean) {
   return `Gate of Gulyabani - kiosk
 =========================
 
-Start: ${win ? `double-click ${exe}` : `run ${cmd}`}. LM Studio must be running with google/gemma-4-e2b loaded.
+Start: ${win ? `double-click ${exe}` : `run ${cmd}`}. LM Studio must be running with a model loaded (google/gemma-4-e2b recommended).
 
 Exit:  only with the power button in the bottom-left corner + KIOSK_EXIT_PIN (default 1885).
        Closing the browser just reopens it; Alt+Tab / Alt+F4 / the ${win ? 'Windows' : 'Meta'} key are blocked.
@@ -106,5 +106,6 @@ Files next to ${exe}:
 After the event (KVKK):
   ${cmd} --purge --yes [--export backup.csv]     delete all personal data
   ${cmd} --reset-winners [--today] --yes         clear the winner list
+  ${cmd} --export-xlsx [--out file.xlsx] [--messages]   export players (and attempts) to Excel
 `;
 }

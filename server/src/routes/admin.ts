@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { config } from '../config.ts';
 import * as store from '../db.ts';
-import { askMonster, llmHealthy } from '../llm.ts';
+import { askMonster, llmHealthy, modelLabel } from '../llm.ts';
 import { buildMessages } from '../prompt.ts';
 import type { GameSettings, Lang } from '../types.ts';
 
@@ -34,7 +34,7 @@ export async function adminRoutes(app: FastifyInstance) {
 
   app.get('/api/admin/overview', async () => ({
     llmOk: await llmHealthy(true),
-    model: config.llmModel,
+    model: modelLabel(),
     stats: store.statsToday(),
     settings: store.getSettings(),
     recent: store.recentAttempts(30),

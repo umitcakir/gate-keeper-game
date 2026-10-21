@@ -11,7 +11,8 @@ export const config = {
   production: process.env.NODE_ENV === 'production',
 
   llmBaseUrl: process.env.LLM_BASE_URL ?? 'http://localhost:1234/v1',
-  llmModel: process.env.LLM_MODEL ?? 'google/gemma-4-e2b',
+  /** "auto" = use whichever model is loaded in LM Studio; a model id pins that model (LM Studio loads it on demand). */
+  llmModel: process.env.LLM_MODEL || 'auto',
   llmTimeoutMs: Number(process.env.LLM_TIMEOUT_MS ?? 15000),
   llmTemperature: Number(process.env.LLM_TEMPERATURE ?? 0.6),
   /** How many previous exchanges are sent to the LLM as context. */

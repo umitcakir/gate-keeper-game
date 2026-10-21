@@ -19,5 +19,5 @@ Read [README.md](README.md) and [ROADMAP.md](ROADMAP.md) first. Design docs live
 - Server runs `.ts` directly with Node's type stripping: use `.ts` import extensions and erasable syntax only (no enums or parameter properties).
 
 ## Environment
-- Node 26, npm. LM Studio at `http://localhost:1234/v1`, model `google/gemma-4-e2b`.
+- Node 26, npm. LM Studio at `http://localhost:1234/v1`, the game uses whichever model is loaded (`LLM_MODEL=auto`, the default); prompts are tuned for `google/gemma-4-e2b`.
 - Shell is fish.

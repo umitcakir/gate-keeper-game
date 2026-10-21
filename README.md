@@ -9,7 +9,7 @@ tell it to keep the gate shut. Players who win its trust within the limits get a
 
 ## Quick start
 
-Prerequisites: Node ≥ 24 (26 recommended), Chromium, and LM Studio serving `google/gemma-4-e2b` on `:1234`.
+Prerequisites: Node ≥ 24 (26 recommended), Chromium, and LM Studio on `:1234` with a model loaded (`google/gemma-4-e2b` recommended: the prompts are tuned for it).
 
 ```bash
 npm install
@@ -29,6 +29,7 @@ npm run dev        # API on :8080 + Vite dev server on http://localhost:5173 (ho
 | `npm run art` | Regenerate the placeholder SVG art |
 | `npm run purge -- --yes` | Delete all personal data after the event (the event DB in `dist/data/`) |
 | `npm run reset-winners -- [--today] --yes` | Clear the winner list (keeps players) in `dist/data/` |
+| `npm run export-xlsx -- [--out file.xlsx] [--messages]` | Export players and attempts to Excel (`--messages` adds the chat log). Reads the dev DB in `data/`; for the event DB use `npm --prefix dist run export-xlsx` |
 
 Admin dashboard: http://localhost:8080/admin (PIN from `.env`, default `4242`). Staff PIN on the win screen: `Ctrl+Shift+P`, default `1234`. Kiosk exit: the ⏻ button in the bottom-left corner, PIN default `1885`.
 Copy `.env.example` to `.env` and **change the PINs** before the event.
@@ -56,5 +57,5 @@ Copy `.env.example` to `.env` and **change the PINs** before the event.
 
 - **Client**: Vite + TypeScript + Phaser 3.90 for the scene; HTML/CSS overlay for the form and chat; WebAudio-synthesised SFX.
 - **Server**: Node 26 (runs `.ts` natively) + Fastify, with the built-in `node:sqlite` module for storage.
-- **LLM**: LM Studio OpenAI-compatible API at `http://localhost:1234/v1`, model `google/gemma-4-e2b`.
+- **LLM**: LM Studio OpenAI-compatible API at `http://localhost:1234/v1`, uses whichever model is loaded in LM Studio (`LLM_MODEL=auto`, the default); set `LLM_MODEL=<id>` to pin one. Recommended: `google/gemma-4-e2b`.
 - **Hardware**: a single reception PC runs everything (LM Studio + server + Chromium in kiosk mode).

@@ -133,7 +133,7 @@ Property order matters: the model judges (`category`, `quality`) *before* writin
 - History: send the system prompt + the last 6 exchanges (fits easily within a 4k context).
 - On server start: a **warm-up call** so the model is loaded before the first player arrives. `/api/status` exposes `llmOk` so the admin page can show a green or red light.
 - In LM Studio: disable the idle **auto-unload / TTL** for the model, set GPU offload to max, context 4096.
-- Model id and base URL come from env (`LLM_BASE_URL`, `LLM_MODEL`), so we can switch to `google/gemma-4-e4b` if quality is too low (it's already downloaded; check whether it fits in VRAM).
+- Model id and base URL come from env (`LLM_BASE_URL`, `LLM_MODEL`). The default `LLM_MODEL=auto` asks LM Studio (`/api/v0/models`) which chat model is loaded and uses it, re-checked every turn; naming a model instead makes LM Studio load it on demand. With nothing loaded the health check fails and the monster "sleeps". So staff can switch to `google/gemma-4-e4b` in LM Studio if quality is too low (check that it fits in VRAM and replies within `LLM_TIMEOUT_MS`); run the eval harness after switching.
 
 ## 6. Database schema
 

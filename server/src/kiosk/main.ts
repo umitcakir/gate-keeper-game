@@ -3,6 +3,7 @@
 //   --server                                  the game server (started by the launcher)
 //   --purge [--yes] [--export backup.csv]     delete all personal data (KVKK), like `npm run purge`
 //   --reset-winners [--today] [--yes]         clear the winner list, like `npm run reset-winners`
+//   --export-xlsx [--out file.xlsx] [--messages]  export players to Excel, like `npm run export-xlsx`
 // .env and data/ (event DB, logs) live next to the executable. The client, the KVKK texts and the Windows helper
 // are embedded, and extracted once per build to a temp folder.
 import { existsSync, mkdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
@@ -44,9 +45,11 @@ process.env.CONTENT_DIR = join(files, 'content');
 const mode = process.argv[2];
 if (mode === '--server') {
   await import('../index.ts');
-} else if (mode === '--purge' || mode === '--reset-winners') {
+} else if (mode === '--purge' || mode === '--reset-winners' || mode === '--export-xlsx') {
   process.argv.splice(2, 1); // the scripts parse the rest of the arguments
-  await (mode === '--purge' ? import('../../../scripts/purge.ts') : import('../../../scripts/reset-winners.ts'));
+  if (mode === '--purge') await import('../../../scripts/purge.ts');
+  else if (mode === '--reset-winners') await import('../../../scripts/reset-winners.ts');
+  else await import('../../../scripts/export-xlsx.ts');
 } else {
   await runKiosk({
     baseDir: exeDir,
